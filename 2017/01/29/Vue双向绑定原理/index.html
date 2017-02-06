@@ -11,7 +11,7 @@
 
   
   <meta name="description" content="Vue真是越用越喜欢，不夸张的说，每次写Vue的代码心情都是愉悦的~哈哈。这么赞的东西不得不知其所以然，所以特此学习了它双向绑定背后的实现原理。真是简洁优雅啊~
-Vue的双向绑定主要是用了ES5的Object.defineProperty(),通过设置getter和setter，监听model的变化">
+Vue的双向绑定主要是用了ES5的Object.defineProperty(),通过设置getter和setter，监听model的变化，从而更新渲染。">
   
 
   
@@ -51,9 +51,9 @@ Vue的双向绑定主要是用了ES5的Object.defineProperty(),通过设置gette
   <nav class="site-navigation">
     <ul>
       
-        <li><a href="/">Home</a></li>
+        <li><a href="/">主页</a></li>
       
-        <li><a href="/archives">Archives</a></li>
+        <li><a href="/archives">归档</a></li>
       
     </ul>
   </nav>
@@ -85,7 +85,7 @@ Vue的双向绑定主要是用了ES5的Object.defineProperty(),通过设置gette
     <div class="entry">
       
         <p>Vue真是越用越喜欢，不夸张的说，每次写Vue的代码心情都是愉悦的~哈哈。<br>这么赞的东西不得不知其所以然，所以特此学习了它双向绑定背后的实现原理。真是简洁优雅啊~</p>
-<p>Vue的双向绑定主要是用了ES5的Object.defineProperty(),通过设置getter和setter，监听model的变化，从而更新渲染。</p>
+<p>Vue的双向绑定主要是用了ES5的Object.defineProperty(),通过设置getter和setter，监听model的变化，从而更新渲染。<br><a id="more"></a></p>
 <h2 id="介绍-Object-defineProperty"><a href="#介绍-Object-defineProperty" class="headerlink" title="介绍 Object.defineProperty()"></a>介绍 Object.defineProperty()</h2><p>该方法会直接在一个对象上定义一个新属性，或者修改一个已经存在的属性， 并返回这个对象。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> o = &#123;&#125;;</div><div class="line"></div><div class="line"><span class="comment">// 情况1：</span></div><div class="line">o.a = <span class="number">1</span>;</div><div class="line"><span class="comment">// 等同于:</span></div><div class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">'a'</span>, &#123;</div><div class="line">  <span class="attr">value</span>: <span class="number">1</span>,</div><div class="line">  <span class="attr">writable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">configurable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">enumerable</span>: <span class="literal">true</span></div><div class="line">&#125;);</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// 情况2,</span></div><div class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">'a'</span>, &#123; <span class="attr">value</span>: <span class="number">1</span> &#125;);</div><div class="line"><span class="comment">// 等同于:</span></div><div class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">'a'</span>, &#123;</div><div class="line">  <span class="attr">value</span>: <span class="number">1</span>,</div><div class="line">  <span class="attr">writable</span>: <span class="literal">false</span>,</div><div class="line">  <span class="attr">configurable</span>: <span class="literal">false</span>,</div><div class="line">  <span class="attr">enumerable</span>: <span class="literal">false</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
 <p>Object.defineProperty()定义的新属性有两种形式的属性描述符：数据描述符和存取描述符。<br>数据描述符有以下键值：</p>
 <ul>
