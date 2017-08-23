@@ -1,89 +1,178 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
-  
-  <title>post请求的数据格式以及ajax的原生实现 | 湫 | 祭司掌握了与神交流的方法，而世人只看见了神杖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
-  <meta name="author" content="Coco Chen">
-  
 
-  
-  <meta name="description" content="作为一个前端入门后端大白，对http请求一直懵懵懂懂，能用，但是其实代码写出来也不知道为什么这样就是对的…Content-Type傻傻分不清。">
-  
 
+<title>
   
+    post请求的数据格式以及ajax的原生实现
   
-  <meta name="keywords" content="">
-  
+</title>
 
-  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="description" content="作为一个前端入门后端大白，对http请求一直懵懵懂懂，能用，但是其实代码写出来也不知道为什么这样就是对的…Content-Type傻傻分不清。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="post请求的数据格式以及ajax的原生实现">
+<meta property="og:url" content="http://yoursite.com/2017/03/12/post请求的数据格式以及ajax的原生实现/index.html">
+<meta property="og:site_name" content="湫">
+<meta property="og:description" content="作为一个前端入门后端大白，对http请求一直懵懵懂懂，能用，但是其实代码写出来也不知道为什么这样就是对的…Content-Type傻傻分不清。">
+<meta property="og:updated_time" content="2017-07-16T02:49:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="post请求的数据格式以及ajax的原生实现">
+<meta name="twitter:description" content="作为一个前端入门后端大白，对http请求一直懵懵懂懂，能用，但是其实代码写出来也不知道为什么这样就是对的…Content-Type傻傻分不清。">
 
-  <meta property="og:title" content="post请求的数据格式以及ajax的原生实现"/>
 
-  <meta property="og:site_name" content="湫"/>
+  <link rel="alternative" href="/atom.xml" title="湫" type="application/atom+xml">
 
-  
-  <meta property="og:image" content="/favicon.ico"/>
-  
 
-  <link href="/favicon.ico" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="湫" type="application/atom+xml">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+  <link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="/perfect-scrollbar/css/perfect-scrollbar.min.css">
+<link rel="stylesheet" href="/styles/main.css">
+
+
+
+
+
+
 </head>
+<body
+  
+    class="monochrome"
+  
+  >
+  <div class="mobile-header">
+  <button class="sidebar-toggle" type="button">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+  <a class="title" href="/">湫</a>
+</div>
 
+  <div class="main-container">
+    <div class="sidebar">
+  <div class="header">
+    <h1 class="title"><a href="/">湫</a></h1>
+    
+      <p class="subtitle">
+        祭司掌握了与神交流的方法，而世人只看见了神杖
+      </p>
+    
+    <div class="info">
+      <div class="content">
+        
+        
+          <div class="author">Coco Chen</div>
+        
+      </div>
+      
+        <div class="avatar">
+          
+            <a href="/about"><img src="https://cn.gravatar.com/avatar/35fef74d731255cd569c2c2b0b9e87e4?s=200"></a>
+          
+        </div>
+      
+    </div>
+  </div>
+  <div class="body">
+    
+      
+        <ul class="nav">
+          
+            
+              <li class="category-list-container">
+                <a href="javascript:;">分类</a>
+                
+              </li>
+            
+          
+            
+              <li class="tag-list-container">
+                <a href="javascript:;">标签</a>
+                
+              </li>
+            
+          
+            
+              <li class="archive-list-container">
+                <a href="javascript:;">归档</a>
+                <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a><span class="archive-list-count">5</span></li></ul>
+              </li>
+            
+          
+        </ul>
+      
+        <ul class="nav">
+          
+            
+              <li>
+                <a href="/" title="Homepage">Homepage</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="/archives" title="By Year">By Year</a>
+              </li>
+            
+          
+        </ul>
+      
+        <ul class="nav">
+          
+            
+              <li>
+                <a href="https://github.com/denjones/hexo-theme-chan" title="Chan" target="_blank" rel="external">Chan</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="https://github.com/denjones" title="Github" target="_blank" rel="external">Github</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="/atom.xml" title="RSS">RSS</a>
+              </li>
+            
+          
+        </ul>
+      
+    
+  </div>
+</div>
 
-<body>
-<div class="blog">
-  <div class="content">
-
-    <header>
-  <div class="site-branding">
-    <h1 class="site-title">
-      <a href="/">湫</a>
+    <div class="main-content">
+      
+        <div style="max-width: 1000px">
+      
+          <article id="post-post请求的数据格式以及ajax的原生实现" class="article article-type-post">
+  
+    <h1 class="article-header">
+      post请求的数据格式以及ajax的原生实现
     </h1>
-    <p class="site-description">祭司掌握了与神交流的方法，而世人只看见了神杖</p>
-  </div>
-  <nav class="site-navigation">
-    <ul>
-      
-        <li><a href="/">主页</a></li>
-      
-        <li><a href="/archives">归档</a></li>
-      
-    </ul>
-  </nav>
-</header>
-
-    <main class="site-main posts-loop">
-    <article>
-
   
+  
+
+  <div class="article-info">
+    <span class="article-date">
+  2017-03-12
+</span>
+
     
-    <h3 class="article-title"><span>post请求的数据格式以及ajax的原生实现</span></h3>
+
     
-  
 
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2017/03/12/post请求的数据格式以及ajax的原生实现/" rel="bookmark">
-        <time class="entry-date published" datetime="2017-03-12T10:00:20.000Z">
-          2017-03-12
-        </time>
-      </a>
-    </span>
   </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>作为一个前端入门后端大白，对http请求一直懵懵懂懂，能用，但是其实代码写出来也不知道为什么这样就是对的…Content-Type傻傻分不清。<br><a id="more"></a></p>
+  <div class="article-entry">
+    <p>作为一个前端入门后端大白，对http请求一直懵懵懂懂，能用，但是其实代码写出来也不知道为什么这样就是对的…Content-Type傻傻分不清。<br><a id="more"></a></p>
 <h2 id="post请求的4种提交数据的方式"><a href="#post请求的4种提交数据的方式" class="headerlink" title="post请求的4种提交数据的方式"></a>post请求的4种提交数据的方式</h2><p>这一部分基本是copy <a href="https://imququ.com/post/four-ways-to-post-data-in-http.html" target="_blank" rel="external">Jerry Qu - 四种常见的 POST 提交数据方式</a></p>
 <h3 id="application-x-www-form-urlencoded"><a href="#application-x-www-form-urlencoded" class="headerlink" title="application/x-www-form-urlencoded"></a>application/x-www-form-urlencoded</h3><p>浏览器的原生form表单，如果不设置 enctype 属性，那么最终就会以 application/x-www-form-urlencoded 方式提交数据。提交的数据按照 key1=val1&amp;key2=val2 的方式进行编码，key 和 val 都进行了 URL 转码。键值对的形式，所以必须要有key，不能直接传一个数组。<br>我们平常用jqeury的ajax提交数据的时候，默认的Content-Tpe都是这个。ajax内部已经对参数调用encodeURIComponent进行转码。</p>
 <blockquote>
@@ -98,75 +187,119 @@
 </blockquote>
 <h3 id="text-xml"><a href="#text-xml" class="headerlink" title="text/xml"></a>text/xml</h3><p>它是一种使用 HTTP 作为传输协议，XML 作为编码方式的远程调用规范。</p>
 <h2 id="简单实现ajax"><a href="#简单实现ajax" class="headerlink" title="简单实现ajax"></a>简单实现ajax</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">createXHR</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.XMLHttpRequest) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> XMLHttpRequest();</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ActiveXObject(<span class="string">'Microsoft.XMLHTTP'</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 对参数进行编码</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">serializeData</span> (<span class="params">data</span>) </span>&#123;</div><div class="line">    <span class="keyword">let</span> res = <span class="string">''</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> attr <span class="keyword">in</span> data) &#123;</div><div class="line">        res = res + <span class="built_in">encodeURIComponent</span>(attr) + <span class="string">'='</span> + <span class="built_in">encodeURIComponent</span>(data[attr]);</div><div class="line">        res += <span class="string">'&amp;'</span>;</div><div class="line">    &#125;</div><div class="line">    res = res.slice(<span class="number">0</span>, res.length - <span class="number">1</span>);</div><div class="line">    <span class="keyword">return</span> res;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">ajax</span> (<span class="params">options</span>) </span>&#123;</div><div class="line">    options = options || &#123;&#125;,</div><div class="line">    options.type = (options.type || <span class="string">"GET"</span>).toUpperCase();</div><div class="line">    options.dataType = options.dataType || <span class="string">"json"</span>;</div><div class="line">    options.url = <span class="built_in">encodeURI</span>(options.url);</div><div class="line"></div><div class="line">    <span class="keyword">let</span> xhr = createXHR();</div><div class="line">    xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span>(xhr.readyState === XMLHttpRequest.DONE) &#123;</div><div class="line">            <span class="keyword">if</span> (xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>) &#123;</div><div class="line">                <span class="keyword">if</span> (options.success) &#123;</div><div class="line">                    options.success(xhr.responseText);</div><div class="line">                &#125;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">if</span> (options.error) &#123;</div><div class="line">                    options.error(status);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (options.type === <span class="string">'GET'</span>) &#123;</div><div class="line">        xhr.open(options.type, options.url, <span class="literal">true</span>);</div><div class="line">        xhr.send(<span class="literal">null</span>);</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (options.type === <span class="string">'POST'</span>) &#123;</div><div class="line">        <span class="keyword">let</span> params = serializeData(options.data);</div><div class="line">        xhr.open(options.type, options.url, <span class="literal">true</span>);</div><div class="line">        xhr.setRequestHeader(<span class="string">"Content-Type"</span>, <span class="string">"application/x-www-form-urlencoded"</span>);</div><div class="line">        xhr.send(params);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+  </div>
+  <footer class="article-footer">
+    
+  <div class="cc">
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/deed.z" target="_blank" title="署名-相同方式共享">
+      <img src="/images/cc/cc.png">
       
-    </div>
-
+          <img src="/images/cc/by.png">
+        
+          <img src="/images/cc/sa.png">
+      
+      <span>
+        本作品采用知识共享 署名-相同方式共享 4.0 国际许可协议进行许可。
+      </span>
+    </a>
   </div>
 
-  <div class="article-footer">
-    <div class="article-meta pull-left">
 
     
 
-    
-
-    </div>
-
-    
-  </div>
+  </footer>
 </article>
 
+
+
+
+
+
+
+          <div class="main-footer">
   
-	<div id="comment">
-	
-	
-	<!-- 多说评论框 start -->
-	 <div class="ds-thread" data-thread-key="/2017/03/12/post请求的数据格式以及ajax的原生实现/" data-title="post请求的数据格式以及ajax的原生实现" data-url="http://yoursite.com/2017/03/12/post请求的数据格式以及ajax的原生实现/"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"cmlingyi"};
-	  (function() {
-	    var ds = document.createElement('script');
-	    ds.type = 'text/javascript';ds.async = true;
-	    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-	    ds.charset = 'UTF-8';
-	    (document.getElementsByTagName('head')[0] 
-	     || document.getElementsByTagName('body')[0]).appendChild(ds);
-	  })();
-	  </script>
-	<!-- 多说公共JS代码 end -->
-	
-	</div>
-
-
-
-
-    </main>
-
-    <footer class="site-footer">
-  <p class="site-info">
-    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
-    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
-    </br>
-    
-    &copy; 2017 Coco Chen
-    
-  </p>
-</footer>
-    
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-91125303-1', 'auto');
-    ga('send', 'pageview');
-
-</script>
-
-  </div>
+    © 2017 湫 - Powered by <a href="http://hexo.io" target="_blank">Hexo</a> - Theme <a href="https://github.com/denjones/hexo-theme-chan" target="_blank">Chan</a>
+  
 </div>
+
+      
+        </div>
+      
+    </div>
+  </div>
+  <script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="/PhotoSwipe/photoswipe.css">
+  <link rel="stylesheet" href="/PhotoSwipe/default-skin/default-skin.css">
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+  <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+             It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+      <!-- Container that holds slides.
+                PhotoSwipe keeps only 3 of them in the DOM to save memory.
+                Don't modify these 3 pswp__item elements, data is added later on. -->
+      <div class="pswp__container">
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+      </div>
+
+      <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+      <div class="pswp__ui pswp__ui--hidden">
+
+        <div class="pswp__top-bar">
+
+          <!--  Controls are self-explanatory. Order can be changed. -->
+
+          <div class="pswp__counter"></div>
+
+          <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+          <button class="pswp__button pswp__button--share" title="Share"></button>
+
+          <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+          <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+          <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+          <!-- element will get class pswp__preloader--active when preloader is running -->
+          <div class="pswp__preloader">
+            <div class="pswp__preloader__icn">
+              <div class="pswp__preloader__cut">
+                <div class="pswp__preloader__donut"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+          <div class="pswp__share-tooltip"></div>
+        </div>
+
+        <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+
+        <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+
+        <div class="pswp__caption">
+          <div class="pswp__caption__center"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/PhotoSwipe/photoswipe.js"></script>
+  <script src="/PhotoSwipe/photoswipe-ui-default.js"></script>
+
+
+<script src="/perfect-scrollbar/js/min/perfect-scrollbar.min.js"></script>
+<script src="/scripts/main.js"></script>
+
 </body>
 </html>
