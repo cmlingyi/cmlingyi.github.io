@@ -19,7 +19,7 @@
 <meta property="og:site_name" content="湫">
 <meta property="og:description" content="RT">
 <meta property="og:image" content="http://yoursite.com/images/pic1.jpg">
-<meta property="og:updated_time" content="2017-08-23T15:14:13.000Z">
+<meta property="og:updated_time" content="2017-08-24T09:09:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="长短连接、长短轮询">
 <meta name="twitter:description" content="RT">
@@ -143,9 +143,9 @@
 <p>无连接：限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。<br>无状态：指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传。</p>
 <p>所以经常看到的http的长连接或短连接，这种说法是不严谨的。这里的长、短连接实际上是指对TCP连接的复用。如图：</p>
 <p><img src="/images/pic1.jpg" alt="示意图">    </p>
-<p>长连接下，多个HTTP请求可以复用同一个TCP连接。<br>比如你访问一个网页，这个页面包含了一系列的js、css等文件资源，如果是短连接，则对每个资源访问都需要建立TCP连接；如果是长连接，则只需建立一次TCP连接。节省了大量的建立和断开连接的时间消耗。         </p>
+<p>长连接下，多个HTTP请求可以复用同一个TCP连接。<br>比如你访问一个网页，这个页面包含了一系列的js、css等文件资源，如果是短连接，则对每个资源访问都需要建立TCP连接；如果是长连接，则只需建立一次TCP连接，同域名下继续用这个通道传输数据。节省了大量的建立和断开连接的时间消耗。         </p>
 <p>长连接是通过设置Connection Header为Keep-Alive实现的。<br>HTTP 1.1 默认就是为长连接方式。</p>
-<p>那么问题来了，TCP连接是一直保持的吗?如果是，它怎样确认对方一直在线，一直需要维持这个连接呢?如果不是，它又是根据什么来决定是否需要断开?TCP的keep alive指什么呢，和HTTP的Keep-Alive是一个东西吗?<br>TCP连接是一直保持的，除非主动断开。<br>TCP的keep alive和HTTP的Keep-Alive是两个毫无联系的概念。为了判断连接是否需要继续保持，TCP协议通过一种巧妙的方式去解决这个问题：当超过一段时间(tcp_keepalive_time、tcp_keepalive_intvl)之后，TCP自动发送一个数据为空的报文给对方，如果对方回应了这个报文，说明对方还在线，连接可以继续保持，如果对方没有报文返回，并且重试了多次(tcp_keepalive_probes)之后则认为丢失，没有必要保持连接。<br>客户端可以通过发送心跳包，来表示自己在线，从而保持TCP的连接。</p>
+<p>那么问题来了，TCP连接是一直保持的吗?如果是，它怎样确认对方一直在线，一直需要维持这个连接呢?如果不是，它又是根据什么来决定是否需要断开?TCP的keep alive指什么呢，和HTTP的Keep-Alive是一个东西吗?<br>TCP连接是一直保持的，除非主动断开。<br>TCP的keep alive和HTTP的Keep-Alive是两个毫无联系的概念。TCP的keep alive是检查当前TCP连接是否活着；HTTP的Keep-alive是要让一个TCP连接活久点。为了判断连接是否需要继续保持，TCP协议通过一种巧妙的方式去解决这个问题：当超过一段时间(tcp_keepalive_time、tcp_keepalive_intvl)之后，TCP自动发送一个数据为空的报文给对方，如果对方回应了这个报文，说明对方还在线，连接可以继续保持，如果对方没有报文返回，并且重试了多次(tcp_keepalive_probes)之后则认为丢失，没有必要保持连接。<br>客户端可以通过发送心跳包，来表示自己在线，从而保持TCP的连接。</p>
 <h2 id="长轮询、短轮询"><a href="#长轮询、短轮询" class="headerlink" title="长轮询、短轮询"></a>长轮询、短轮询</h2><p>长、短连接是通过Connection Header来决定的。而长、短轮询实际上是指服务端的处理方式。         </p>
 <p>如果页面怎么实现某个数据的实时刷新呢?    </p>
 <p>一种做法是短轮询，即客户端不断的发起请求，然后服务端查询数据，在返回结果，从而获得最新的数据。<br>那么又有两个问题：1.为达到实时，这个请求的间隔到底该设置多少呢? 2.如果有1000个用户同时在访问这个页面，就会有1000个不断发起请求的客户端，服务端也要不停的进行查询操作，再发出响应给客户端。这种消耗可能会非常的大，明显不合理。</p>
